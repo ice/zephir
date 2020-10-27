@@ -80,7 +80,7 @@ jobs:
 
       - name: Set Environment Variables
         run: |
-          echo ::set-env name=SYMFONY_PHPUNIT_VERSION::${{ matrix.symfony_phpunit }}
+          echo "name=SYMFONY_PHPUNIT_VERSION::${{ matrix.symfony_phpunit }}" >> $GITHUB_ENV
 
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -204,7 +204,6 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          yml: ./.codecov.yml
           name: codecov-umbrella
           flags: unittests
           fail_ci_if_error: false
