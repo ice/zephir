@@ -890,7 +890,7 @@ final class Compiler
                 exec('cd ext && phpize', $output, $exit);
 
                 $this->logger->info('Copy missing auxiliary files...');
-                exec('cd ext && autoreconf --install');
+                exec('cd ext && aclocal && libtoolize --copy --force && autoheader && autoconf');
 
                 $this->logger->info('Preparing configuration file...');
 
