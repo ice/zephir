@@ -41,3 +41,12 @@ if [ -f ./compile-errors.log ]; then
     (>&1 printf "%s\\n" "$log_contents")
   }
 fi
+echo "-------------------------------------------------------------------------"
+
+if [ -f ./ext/config.log ]; then
+  log_contents=$(cat ./ext/config.log)
+  [[ -z "${log_contents// }" ]] || {
+    (>&1 echo "Configure log:")
+    (>&1 printf "%s\\n" "$log_contents")
+  }
+fi

@@ -115,7 +115,7 @@ jobs:
         if: startsWith(runner.os, 'Linux')
         run: |
           sudo apt-get update --quiet --yes 1>/dev/null
-          sudo apt-get install --no-install-recommends -q -y re2c libtool
+          sudo apt-get install --no-install-recommends -q -y re2c
 
       - name: Get Zephir Parser Cache Key
         id: pcache
