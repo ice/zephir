@@ -889,6 +889,9 @@ final class Compiler
                 $this->logger->info('Preparing for PHP compilation...');
                 exec('cd ext && phpize', $output, $exit);
 
+                $this->logger->info('Copy missing auxiliary files...');
+                exec('cd ext && autoreconf --install');
+
                 $this->logger->info('Preparing configuration file...');
 
                 $gccFlags = $this->getGccFlags($development);
