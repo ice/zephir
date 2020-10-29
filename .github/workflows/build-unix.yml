@@ -87,6 +87,14 @@ jobs:
         with:
           fetch-depth: 5
 
+      - name: Check libtool
+        if: startsWith(runner.os, 'Linux')
+        run: |
+          ls -lah /usr/share/libtool
+          ls -lah /usr/share/libtool/build-aux
+          command -v libtool || true
+          libtool --version || true
+
       - name: Common Settings
         run: |
           # Core dump settings
@@ -179,8 +187,8 @@ jobs:
         run: |
           ls -lah /usr/share/libtool
           ls -lah /usr/share/libtool/build-aux
-          command -v libtool
-          libtool --version
+          command -v libtool || true
+          libtool --version || true
 
       - name: Compile Stub Project (Linux)
         if: startsWith(runner.os, 'Linux')
