@@ -175,7 +175,7 @@ jobs:
         run: |
           zephir --help
           zephir clean
-          zephir fullclean
+          # zephir fullclean
           zephir generate
           zephir stubs
           zephir api
