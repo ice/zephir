@@ -57,6 +57,7 @@ jobs:
           # servers are unstable or even offline.
           sudo rm -f /etc/apt/sources.list.d/dotnetdev.list
           sudo rm -f /etc/apt/sources.list.d/azure*.list
+          ls -lah /usr/share/libtool/build-aux
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -81,6 +82,7 @@ jobs:
       - name: Set Environment Variables
         run: |
           echo "name=SYMFONY_PHPUNIT_VERSION::${{ matrix.symfony_phpunit }}" >> $GITHUB_ENV
+          ls -lah /usr/share/libtool/build-aux
 
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -124,6 +126,7 @@ jobs:
         run: |
           sudo apt-get update --quiet --yes 1>/dev/null
           sudo apt-get install --no-install-recommends -q -y re2c
+          ls -lah /usr/share/libtool/build-aux
 
       - name: Get Zephir Parser Cache Key
         id: pcache
@@ -137,7 +140,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ matrix.php }}-zephir-parser-
 
       - name: Install Zephir Parser
-        run: .ci/install-zephir-parser.sh
+        run: .ci/install-zephir-parser.sh && ls -lah /usr/share/libtool/build-aux
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -159,10 +162,14 @@ jobs:
           fi
 
       - name: Install Project Dependencies
-        run: composer install --prefer-dist --no-interaction --no-ansi --no-progress --no-suggest
+        run: |
+          composer install --prefer-dist --no-interaction --no-ansi --no-progress --no-suggest
+          ls -lah /usr/share/libtool/build-aux
 
       - name: Prepare Zephir Executable
-        run: sudo ln -s "$(pwd)/zephir" /usr/local/bin/zephir
+        run: |
+          sudo ln -s "$(pwd)/zephir" /usr/local/bin/zephir
+          ls -lah /usr/share/libtool/build-aux
 
       - name: Fast Commands Test
         run: |
@@ -172,6 +179,7 @@ jobs:
           zephir generate
           zephir stubs
           zephir api
+          ls -lah /usr/share/libtool/build-aux
 
       # - name: Compile Test Project (macOS)
       #   if: startsWith(runner.os, 'macOS')
